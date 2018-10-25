@@ -12,10 +12,6 @@ class TestDisposableEmail < TestModel
   validates :email, email: { not_disposable: true}
 end
 
-class TestFreeEmail < TestModel
-  validates :email, email: { not_free: true}
-end
-
 class TestWhitelistedEmail < TestModel
   validates :email, email: true
 end
@@ -82,23 +78,6 @@ describe EmailCheck do
     end
   end
 
-  describe "Free Emails" do
-    before do
-      EmailCheck.free_email_domains = []
-    end
-
-    it "should be valid when email domain is not in the list of free emails" do
-      email = "someone@example.com"
-      expect(TestFreeEmail.new(email:email).valid?).to be true
-    end
-
-    it "should not be valid when email domain is in the list of free emails" do
-      EmailCheck.free_email_domains << "gmail.com"
-      email = "someone@gmail.com"
-      expect(TestFreeEmail.new(email:email).valid?).to be false
-    end
-  end
-
   describe "Blacklisted Emails" do
     before do
       EmailCheck.blacklisted_domains = []
@@ -118,7 +97,6 @@ describe EmailCheck do
   describe "Whitelisted Emails" do
     before do
       EmailCheck.blacklisted_domains = ["gmail.com"]
-      EmailCheck.free_email_domains = ["gmail.com"]
       EmailCheck.disposable_email_domains = ["gmail.com"]
       EmailCheck.whitelisted_domains = ["gmail.com"]
     end
@@ -153,10 +131,6 @@ describe EmailCheck do
   describe "Data loading" do
     it "should load the blacklist" do
       expect(EmailCheck.blacklisted_domains.length).to be > 0
-    end
-
-    it "should load free email domains" do
-      expect(EmailCheck.free_email_domains.length).to be > 0
     end
 
     it "should load disposable email domains" do

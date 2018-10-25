@@ -1,16 +1,10 @@
 # EmailCheck
 
-[![Gem Version][GV img]][Gem Version]
-[![Build Status][BS img]][Build Status]
-[![Dependency Status][DS img]][Dependency Status]
-[![Code Climate][CC img]][Code Climate]
-[![Coverage Status][CS img]][Coverage Status]
-
 ## Description
-This was originally built for [Anonybuzz](https://anonybuzz.com) and is now used at [StarTalent](https://startalent.io). 
+This was originally built by [Darshan Patil](https://github.com/dapatil/email_check) but has been modified to rely on a more updated list of disposable domains.  
 This gem provides a robust mechanism to validate email addresses and restrict account creation to corporate email accounts.
 
-This gem also ships with a data-set of free and [disposable](http://en.wikipedia.org/wiki/Disposable_email_address)
+This gem also ships with a data-set of [disposable](http://en.wikipedia.org/wiki/Disposable_email_address)
 email domains which are used for validation checks.
 
 You can also block certain usernames from creating accounts. Examples: admin, root
@@ -19,14 +13,17 @@ You can also block certain usernames from creating accounts. Examples: admin, ro
 - Uses the mail gem. 
 - Checks the domain's MX record
 - Validate against a blacklist of domains
-- Validates against a list of free email providers
 - Validates against a list of disposable email providers
 - A whitelist can be used to override these checks
 
 ## Installation
 Add this line to your application's Gemfile:
 ```ruby
-gem "email_check"
+# if you don't already have it:
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+
+gem "email_check", github: 'Rezgur/email_check'
 ```
 
 ## Usage
@@ -41,9 +38,9 @@ To validate that the domain has a MX record:
 ```ruby
 validates_email :email, check_mx: true
 ```
-To validate that the email is not from a disposable or free email provider:
+To validate that the email is not from a disposable email provider:
 ```ruby
-validates_email :email, not_disposable:true, not_free:true
+validates_email :email, not_disposable:true
 ```
 To validate that the domain is not blacklisted:
 ```ruby
@@ -60,7 +57,6 @@ Everything together:
 validates_email :email,
     check_mx: true, 
     not_disposable:true, 
-    not_free:true, 
     not_blacklisted:true,
     block_special_usernames:true,
     message: "Please register with your corporate email"
@@ -71,9 +67,6 @@ To turn everything on by default, you can use the validates_email_strictness hel
 ```ruby
 # Example above
 validates_email_strictness :email
-
-# Everything but allow free emails. This is what most people would want to use
-validates_email_strictness :email, not_free:false
 ```
 
 ### Modifying the inbuilt lists
@@ -93,38 +86,20 @@ EmailCheck.blocked_usernames << 'anonymous'
 ```
 
 ## Requirements
-This gem is tested with Rails 4.0+. Ruby versions tested:
-- Ruby 2.0
-- Ruby 2.1
-- Ruby 2.2
-- Ruby 2.3
+This gem is tested with Rails 5.0+. Ruby versions tested:
+- Ruby 2.5.1
 
 Rails versions tested:
-Rails 4.0
-Rails 5.0
+- Rails 5.2.1
 
 ## Credits
-- This code is heavily based upon: [lisinge/valid_email2](https://github.com/lisinge/valid_email2) 
-- Data is from: [lavab/disposable](https://github.com/lavab/disposable/blob/master/domains.txt) and
-              [willwhite/freemail](https://github.com/willwhite/freemail/blob/master/data/free.txt)
-
-[Gem Version]: https://rubygems.org/gems/email_check
-[Build Status]: https://travis-ci.org/dapatil/email_check
-[travis pull requests]: https://travis-ci.org/dapatil/email_check/pull_requests
-[Dependency Status]: https://gemnasium.com/dapatil/email_check
-[Code Climate]: https://codeclimate.com/github/dapatil/email_check
-[Coverage Status]: https://coveralls.io/r/dapatil/email_check
-
-[GV img]: https://badge.fury.io/rb/email_check.png
-[BS img]: https://travis-ci.org/dapatil/email_check.png
-[DS img]: https://gemnasium.com/dapatil/email_check.png
-[CC img]: https://codeclimate.com/github/dapatil/email_check.png
-[CS img]: https://coveralls.io/repos/dapatil/email_check/badge.png?branch=master
+- This code is based upon: [dapatil/email_check](https://github.com/dapatil/email_check) which is heavily based upon [lisinge/valid_email2](https://github.com/lisinge/valid_email2) 
+- Disposable email list via: [martenson/disposable-email-domains](https://github.com/martenson/disposable-email-domains)
 
 
 ## Contributing
 
-1. Fork it ( https://github.com/dapatil/email_check/fork )
+1. Fork it ( https://github.com/Rezgur/email_check/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

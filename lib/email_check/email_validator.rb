@@ -13,7 +13,7 @@ class EmailValidator < ActiveModel::EachValidator
 
     address = EmailCheck::EmailAddress.new(value)
 
-    unless address && address.format_valid?
+    unless address&.format_valid?
       add_error(record, attribute)
       return
     end
@@ -31,11 +31,6 @@ class EmailValidator < ActiveModel::EachValidator
     end
 
     if options[:not_blacklisted] && address.blacklisted_domain?
-      add_error(record, attribute)
-      return
-    end
-
-    if options[:not_free] && address.free_email_provider?
       add_error(record, attribute)
       return
     end

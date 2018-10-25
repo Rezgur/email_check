@@ -10,7 +10,7 @@ module EmailCheck
     end
 
     def format_valid?
-      @format_valid ||= check_format()
+      @format_valid ||= check_format
     end
 
     def disposable?
@@ -46,8 +46,7 @@ module EmailCheck
       return val
     end
 
-    private
-    def check_format
+    private def check_format
       return false unless @email
 
       if @email.domain && @email.address == @email_address

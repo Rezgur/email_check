@@ -6,12 +6,12 @@ require 'email_check/version'
 Gem::Specification.new do |spec|
   spec.name          = "email_check"
   spec.version       = EmailCheck::VERSION
-  spec.authors       = ["Darshan Patil"]
-  spec.email         = ["dapatil@gmail.com"]
+  spec.authors       = ["MattDahEpic", "Darshan Patil"]
+  spec.email         = ["matt@mattdahepic.com"]
 
-  spec.summary       = %q{ActiveModel email validator. Checks MX records. Ships with lists of free, disposable email providers}
-  spec.description   = %q{ActiveModel email validator. Checks MX records for domains. Allows you to block free/disposable email providers}
-  spec.homepage      = "https://github.com/dapatil/email_check"
+  spec.summary       = %q{ActiveModel email validator. Checks MX records. Ships with lists of disposable email providers}
+  spec.description   = %q{ActiveModel email validator. Checks MX records for domains. Allows you to block disposable email providers}
+  spec.homepage      = "https://github.com/Rezgur/email_check"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
