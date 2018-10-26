@@ -42,8 +42,7 @@ class EmailValidator < ActiveModel::EachValidator
     end
   end
 
-  private
-  def add_error(record, attribute)
+  private def add_error(record, attribute)
     record.errors.add(attribute, options[:message] || :invalid)
   end
 end

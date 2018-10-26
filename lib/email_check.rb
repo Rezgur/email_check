@@ -4,9 +4,9 @@ require 'email_check/helper_methods'
 
 module EmailCheck
   # Load the data
-  @@disposable_email_domains ||= File.read(File.expand_path('../../vendor/disposable_email_blocklist.conf',__FILE__)).split('\n')
-  @@blacklisted_domains ||= File.read(File.expand_path("../../vendor/blacklist.conf", __FILE__)).split('\n')
-  @@blocked_usernames ||= File.read(File.expand_path("../../vendor/blocked_usernames.conf", __FILE__)).split('\n')
+  @@disposable_email_domains ||= File.read(File.expand_path('../../vendor/disposable_email_blocklist.conf',__FILE__)).split("\n")
+  @@blacklisted_domains ||= File.read(File.expand_path("../../vendor/blacklist.conf", __FILE__)).split("\n")
+  @@blocked_usernames ||= File.read(File.expand_path("../../vendor/blocked_usernames.conf", __FILE__)).split("\n")
 
   # Disposable email providers
   def self.disposable_email_domains
